@@ -32,15 +32,15 @@ const pretty = require("pretty");
   //console.log(neurl.data)
   $ = cheerio.load(neurl.data);
   const data = $('script').html()
-  console.log(data.toString())
-  var text = data.toString()
+  console.log(data)
+  //var text = data.toString()
   //const take = esprima.parseScript(text)
   //console.log(text,JSON.stringify(take))
   var rePattern = new RegExp(/(https:\/\/rr1---sn-[^\s]+[A-D])/gm)
-  const reg = text.match(rePattern)
-  console.log(reg).toString()
-  const regular = /(https:\/\/rr1---sn-[^\s]+[A-D])/gm
-  const read = text.match(regular)
+  const reg = data.match(rePattern)
+  console.log(reg.toString())
+  //const regular = /(https:\/\/rr1---sn-[^\s]+[A-D])/gm
+  //const read = text.match(regular)
   //console.log(read)
   console.log('published')
   }

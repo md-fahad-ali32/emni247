@@ -32,6 +32,7 @@ const pretty = require("pretty");
   //console.log(neurl.data)
   $ = cheerio.load(neurl.data);
   const data = $('script').html()
+  console.log(data.toString())
   var text = data.toString()
   //const take = esprima.parseScript(text)
   //console.log(text,JSON.stringify(take))

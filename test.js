@@ -4,6 +4,8 @@ const port = process.env.PORT || 4000
 const axios = require("axios");
 const cheerio = require("cheerio");
 const fs = require("fs")
+var esprima = require('esprima');
+var Regex = require("regex");
 const pretty = require("pretty");
 
 (async function(){
@@ -31,10 +33,14 @@ const pretty = require("pretty");
   $ = cheerio.load(neurl.data);
   const data = $('script').html()
   var text = data.toString()
-  console.log(text)
+  const take = esprima.parseScript(text)
+  //console.log(text,JSON.stringify(take))
+  var rePattern = new RegExp(/(https:\/\/rr1---sn-[^\s]+[A-D])/gm)
+  const reg = text.match(rePattern)
+  console.log(reg)
   const regular = /(https:\/\/rr1---sn-[^\s]+[A-D])/gm
   const read = text.match(regular).toString()
-  console.log(read)
+  //console.log(read)
   console.log('published')
   }
   

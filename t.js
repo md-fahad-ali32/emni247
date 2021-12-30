@@ -5,6 +5,7 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const fs = require("fs")
 const pretty = require("pretty");
+var Regex = require("regex");
 
 app.get('/',(req,res)=>{
   res.end(`
@@ -43,8 +44,11 @@ app.get('/tv.m3u',async function(req,res) {
   const re = await axios.get(next)
   $ = cheerio.load(re.data);
   const data = $('script').html()
+  console.log('data asse')
+
   var text = data.toString()
-  const reg = /(https:\/\/rr1---sn-[^\s]+[A-D])/gm
+  console.log(text)
+  const reg = new RegExp(/(https:\/\/rr1---sn-[^\s]+[A-D])/gm)
   const read = text.match(reg).toString()
   console.log(read)
   /*res.writeHead(200,{

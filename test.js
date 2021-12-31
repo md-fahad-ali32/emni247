@@ -5,7 +5,7 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const fs = require("fs")
 var esprima = require('esprima');
-var Regex = require("regex");
+const regexpTree = require('regexp-tree');
 const pretty = require("pretty");
 
 (async function(){
@@ -26,22 +26,15 @@ const pretty = require("pretty");
     console.log('not published')
     console.log('https://github.com/sploit30/emni/blob/main/Untitled%2011%201280x720%201.42Mbps%202021-12-30%2017-16-47.mp4?raw=true')
   }else{
-  const next = $("body").find("#BLOGGER-video-fbd948bdff01633a-15883").attr("src")
+  const next = $("body").find(".b-uploaded").attr("src")
   console.log(`next part ${next}`)
   const neurl = await axios.get(next)
   //console.log(neurl.data)
   $ = cheerio.load(neurl.data);
   const data = $('script').html()
-  console.log(data)
-  //var text = data.toString()
-  //const take = esprima.parseScript(text)
-  //console.log(text,JSON.stringify(take))
-  var rePattern = new RegExp(/(https:\/\/rr1---sn-[^\s]+[A-D])/gm)
-  const reg = data.match(rePattern)
-  console.log(reg.toString())
-  //const regular = /(https:\/\/rr1---sn-[^\s]+[A-D])/gm
-  //const read = text.match(regular)
-  //console.log(read)
+  var d = data.split('play_url')[1]
+  var t = d.split('"')[2]
+  console.log(t)
   console.log('published')
   }
   

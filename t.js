@@ -5,7 +5,6 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const fs = require("fs")
 const pretty = require("pretty");
-var Regex = require("regex");
 
 app.get('/',(req,res)=>{
   res.end(`
@@ -39,24 +38,22 @@ app.get('/tv.m3u',async function(req,res) {
     `)
     
   }else{
-  const next = $("body").find("#BLOGGER-video-fbd948bdff01633a-15883").attr("src")
+  const next = $("body").find(".b-uploaded").attr("src")
   console.log(next)
-  const re = await axios.get(next)
-  $ = cheerio.load(re.data);
+  const neurl = await axios.get(next)
+  $ = cheerio.load(neurl.data);
   const data = $('script').html()
-  console.log('data asse')
-
-  var text = data.toString()
-  console.log(text)
-  const reg = new RegExp(/(https:\/\/rr1---sn-[^\s]+[A-D])/gm)
-  const read = text.match(reg).toString()
-  console.log(read)
+  var d = data.split('play_url')[1]
+  var t = d.split('"')[2]
+  console.log(t)
+  console.log('published')
+  
   /*res.writeHead(200,{
      'Content-Type' : 'application/mpegurl'
     })*/
   res.contentType('application/x-mpegURL')
   res.end(`#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/en/4/42/Khorkuto.jpg" group-title="Bangladesh",Khorkuto
-  ${read}
+  ${t}
   `)
   console.log('published')
   }
